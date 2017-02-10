@@ -1,5 +1,7 @@
 FROM amancevice/pandas:0.18.1-python3
 
+RUN pip3 install -U pip
+
 # Install
 ENV SUPERSET_VERSION 0.15.4
 RUN apk add --no-cache \
@@ -7,7 +9,10 @@ RUN apk add --no-cache \
         libffi-dev \
         cyrus-sasl-dev \
         mariadb-dev \
-        postgresql-dev && \
+        postgresql-dev \
+	unixodbc \
+	unixodbc-dev \
+	freetds-dev && \
     pip3 install \
         superset==$SUPERSET_VERSION \
         mysqlclient==1.3.7 \
@@ -15,6 +20,7 @@ RUN apk add --no-cache \
         psycopg2==2.6.1 \
         redis==2.10.5 \
         sqlalchemy-redshift==0.5.0
+
 
 # Default config
 ENV LANG=C.UTF-8 \
